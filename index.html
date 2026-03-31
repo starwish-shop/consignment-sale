@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品展示頁面</title>
+	
+	<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&display=swap" rel="stylesheet">
+    
+	<style>
+        /* (保留你原本的基礎設定和 header 設定...) */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+
+        header {
+            background-color: #9a87f5; /* 薰衣草紫 */
+            padding: 18px 20px;
+            text-align: center;
+            color: white;
+            
+            /* ===== 新增與修改這裡 ===== */
+            font-family: 'Cinzel', serif; /* 套用英倫風字體 */
+            font-size: 1.8rem; /* 字體稍微放大一點 */
+            font-weight: 500; /* 控制粗細，500比較剛好，不會太粗 */
+            letter-spacing: 6px; /* 字距拉開，精品品牌最愛用的排版技巧 */
+            /* ========================= */
+
+            position: sticky; 
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* ===== 新增：分類標題的設計 ===== */
+        .category-title {
+            max-width: 1200px;
+            margin: 40px auto 10px auto; /* 增加上方的距離，與上面的商品拉開空間 */
+            padding: 0 20px;
+            font-size: 1.6rem;
+            color: #4a4a4a;
+            border-bottom: 2px solid #e0e0e0; /* 加上一條淺灰色的底線 */
+            padding-bottom: 10px;
+        }
+        
+        /* 網格容器：設定一行三個 */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1200px;
+            margin: 20px auto; 
+            padding: 0 20px; 
+        }
+
+        /* (保留你原本的商品卡片 .product-card 等所有設計...) */
+        .product-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+
+        .image-gallery {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none; 
+            -ms-overflow-style: none;  
+        }
+        
+        .image-gallery::-webkit-scrollbar {
+            display: none;
+        }
+
+        .image-gallery img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            flex-shrink: 0;
+            scroll-snap-align: start;
+        }
+
+        .product-info {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-name {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #333;
+            margin: 0 0 10px 0;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            color: #e53935;
+            font-weight: bold;
+            margin: 0 0 15px 0;
+        }
+
+        @media (max-width: 900px) {
+            .product-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+            .product-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>STARWISH</header>
+
+    <h2 class="category-title">GOT7</h2>
+    <div class="product-grid">
+        <div class="product-card">
+            <div class="image-gallery">
+                <img src="images/1.jpg" alt="商品照片">
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">GOT7 專輯</h2>
+                <p class="product-price">NT$ 450</p>
+            </div>
+        </div>
+        
+        <div class="product-card">
+            <div class="image-gallery">
+                <img src="images/2.jpg" alt="商品照片">
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">GOT7 專輯</h2>
+                <p class="product-price">NT$ 450</p>
+            </div>
+        </div>
+		</div>
+		
+	<h2 class="category-title">HIGHTLIGHT</h2>
+		<div class="product-grid">
+        <div class="product-card">
+            <div class="image-gallery">
+                <img src="images/3.jpg" alt="商品照片">
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">HIGHTLIGHT 專輯</h2>
+                <p class="product-price">NT$ 300</p>
+            </div>
+        </div>
+		</div>
+
+
+    <h2 class="category-title">SEVENTEEN 專區</h2>
+    <div class="product-grid">
+        <div class="product-card">
+            <div class="image-gallery">
+                <img src="images/4.jpg" alt="商品照片">
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">SEVENTEEN 小卡</h2>
+                <p class="product-price">NT$ 10~230</p>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="image-gallery">
+                <img src="images/5.jpg" alt="商品照片">
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">SEVENTEEN 專輯</h2>
+                <p class="product-price">NT$ 360</p>
+            </div>
+        </div>
+        
+        <div class="product-card">
+            <div class="image-gallery">
+                <img src="images/6.jpg" alt="商品照片">
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">SEVENTEEN 小卡</h2>
+                <p class="product-price">NT$ 25~80</p>
+            </div>
+        </div>
+		
+		<div class="product-card">
+            <div class="image-gallery">
+                <img src="images/7.jpg" alt="商品照片">
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">SEVENTEEN 專輯</h2>
+                <p class="product-price">NT$ 400</p>
+            </div>
+        </div>
+		
+		<div class="product-card">
+            <div class="image-gallery">
+                <img src="images/8.jpg" alt="商品照片">
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">SEVENTEEN 專輯</h2>
+                <p class="product-price">NT$ 360</p>
+            </div>
+        </div>
+		
+		<div class="product-card">
+            <div class="image-gallery">
+                <img src="images/9.jpg" alt="商品照片">
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">SEVENTEEN 小卡</h2>
+                <p class="product-price">NT$ 30~45</p>
+            </div>
+        </div>
+		
+		<div class="product-card">
+            <div class="image-gallery">
+                <img src="images/10.jpg" alt="商品照片">
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">SEVENTEEN 專輯</h2>
+                <p class="product-price">NT$ 360</p>
+            </div>
+        </div>
+		
+		<div class="product-card">
+            <div class="image-gallery">
+                <img src="images/11.jpg" alt="商品照片">
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">SEVENTEEN 小卡</h2>
+                <p class="product-price">NT$ 10~50</p>
+            </div>
+        </div>
+		
+		<div class="product-card">
+            <div class="image-gallery">
+                <img src="images/12.jpg" alt="商品照片">
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">SEVENTEEN 小卡</h2>
+                <p class="product-price">NT$ 80</p>
+            </div>
+        </div>
+		
+		<div class="product-card">
+            <div class="image-gallery">
+                <img src="images/13.jpg" alt="商品照片">
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">SEVENTEEN 空專(無小卡)</h2>
+                <p class="product-price">NT$ 80~115</p>
+            </div>
+        </div>
+		
+		<div class="product-card">
+            <div class="image-gallery">
+                <img src="images/14.jpg" alt="商品照片">
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">SEVENTEEN 空專(無小卡)</h2>
+                <p class="product-price">NT$ 100~150</p>
+            </div>
+        </div>
+		
+		<div class="product-card">
+            <div class="image-gallery">
+                <img src="images/15.jpg" alt="商品照片">
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">SEVENTEEN 空專(無小卡)</h2>
+                <p class="product-price">NT$ 80~100</p>
+            </div>
+        </div>
+		
+		<div class="product-card">
+            <div class="image-gallery">
+                <img src="images/16.jpg" alt="商品照片">
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">SEVENTEEN 小卡</h2>
+                <p class="product-price">NT$ 70</p>
+            </div>
+        </div>
+		
+		<div class="product-card">
+            <div class="image-gallery">
+                <img src="images/17.jpg" alt="商品照片">
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">SEVENTEEN 專輯</h2>
+                <p class="product-price">NT$ 360</p>
+            </div>
+        </div>
+		
+		<div class="product-card">
+            <div class="image-gallery">
+                <img src="images/18.jpg" alt="商品照片">
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">SEVENTEEN 小卡</h2>
+                <p class="product-price">NT$ 20~320</p>
+            </div>
+        </div>
+		
+		<div class="product-card">
+            <div class="image-gallery">
+                <img src="images/19.jpg" alt="商品照片">
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">SEVENTEEN 小卡</h2>
+                <p class="product-price">NT$ 25~85</p>
+            </div>
+        </div>
+        </div>
+		
+	<h2 class="category-title">Stray Kids</h2>
+		<div class="product-grid">
+        <div class="product-card">
+            <div class="image-gallery">
+                <img src="images/20.jpg" alt="商品照片">
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">Stray Kids 徽章</h2>
+                <p class="product-price">NT$ 180~200</p>
+            </div>
+        </div>
+		
+		<div class="product-card">
+            <div class="image-gallery">
+                <img src="images/21.jpg" alt="商品照片">
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">Stray Kids 小卡</h2>
+                <p class="product-price">NT$ 200(一組)</p>
+            </div>
+        </div>
+		
+		<div class="product-card">
+            <div class="image-gallery">
+                <img src="images/22.jpg" alt="商品照片">
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">Stray Kids 扇子</h2>
+                <p class="product-price">NT$ 250</p>
+            </div>
+        </div>
+		
+		<div class="product-card">
+            <div class="image-gallery">
+                <img src="images/23.jpg" alt="商品照片">
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">Stray Kids 小卡</h2>
+                <p class="product-price">NT$ 200(一組)</p>
+            </div>
+        </div>
+		</div>
+
+</body>
+</html>
