@@ -640,10 +640,19 @@
     // 【重要】請將下方網址換成你點擊「部署」後取得的最新 Web App URL
     const scriptURL = "https://script.google.com/macros/s/AKfycbzwWCcB0Edpr-1ux2z8SbYqPTiKmdqetZZXmy6pFxE44bRR4Nr84Wkg4N5ZqH2wfJyd/exec";
 
-    // 使用 no-cors 模式確保不會因為跨網域安全性被瀏覽器擋掉
-    fetch(scriptURL, { mode: 'no-cors' })
-      .then(() => console.log("瀏覽紀錄已成功發送"))
-      .catch(error => console.error("紀錄失敗:", error));
+console.log("嘗試發送紀錄...");
+
+    fetch(scriptURL, {
+      method: 'GET',
+      mode: 'no-cors', // 必須保留，否則會被跨網域擋掉
+      cache: 'no-cache'
+    })
+    .then(() => {
+      console.log("紀錄指令已送出至 Google！");
+    })
+    .catch(error => {
+      console.error("連線出錯:", error);
+    });
   });
 </script>
 	
