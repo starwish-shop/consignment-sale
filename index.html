@@ -635,22 +635,16 @@
 		</div>
 
 
-	<script>
-  (function() {
-    // 這裡請填入你「重新部署」後取得的最新 Web App URL
-    const scriptURL = "你的_GOOGLE_APPS_SCRIPT_部署網址";
+<script>
+  window.addEventListener('load', function() {
+    // 【重要】請將下方網址換成你點擊「部署」後取得的最新 Web App URL
+    const scriptURL = "這裡換成你的Google部署網址";
 
-    // 網頁載入後執行
-    window.addEventListener('load', function() {
-      fetch(scriptURL, { mode: 'no-cors' }) // no-cors 模式可避免跨網域安全性報錯
-        .then(() => {
-          console.log("瀏覽人次紀錄成功");
-        })
-        .catch((error) => {
-          console.error("紀錄失敗:", error);
-        });
-    });
-  })();
+    // 使用 no-cors 模式確保不會因為跨網域安全性被瀏覽器擋掉
+    fetch(scriptURL, { mode: 'no-cors' })
+      .then(() => console.log("瀏覽紀錄已成功發送"))
+      .catch(error => console.error("紀錄失敗:", error));
+  });
 </script>
 	
 </body>
