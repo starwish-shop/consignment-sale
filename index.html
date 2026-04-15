@@ -636,16 +636,21 @@
 
 
 	<script>
-  // 這段程式碼會在網頁載入時自動執行
-  window.onload = function() {
-    // 你的 Google Apps Script 網址
-    var scriptURL = "這裡貼上你剛才複製的部署網址";
+  (function() {
+    // 這裡請填入你「重新部署」後取得的最新 Web App URL
+    const scriptURL = "你的_GOOGLE_APPS_SCRIPT_部署網址";
 
-    // 發送請求
-    fetch(scriptURL)
-      .then(response => console.log('瀏覽紀錄成功！'))
-      .catch(error => console.error('紀錄出錯了：', error));
-  };
+    // 網頁載入後執行
+    window.addEventListener('load', function() {
+      fetch(scriptURL, { mode: 'no-cors' }) // no-cors 模式可避免跨網域安全性報錯
+        .then(() => {
+          console.log("瀏覽人次紀錄成功");
+        })
+        .catch((error) => {
+          console.error("紀錄失敗:", error);
+        });
+    });
+  })();
 </script>
 	
 </body>
