@@ -564,34 +564,43 @@
     </div>
 
 <script>
-    // 解決手機版刷新置頂問題的強力腳本
     function forceScrollTop() {
         window.scrollTo(0, 0);
     }
 
-    // 1. 關閉瀏覽器自動恢復滾動位置
+    // 關閉瀏覽器自動記錄滾動
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
 
-    // 2. 頁面載入與離開時的處理
-    window.addEventListener('pagehide', forceScrollTop); // 針對手機 Safari 加強
-    window.addEventListener('load', function() {
-        setTimeout(forceScrollTop, 10); // 延遲執行確保圖片撐開後能歸位
-        
-        if (window.location.hash) {
-            history.replaceState(null, null, window.location.pathname);
-        }
-
-        // Google Sheets 紀錄 (如果你有需要的話)
-        const scriptURL = "https://script.google.com/macros/s/AKfycbxcu82VuocKiFR_h7dV9x1OkKzBnLga6bwFoRxscruWzCzcALHKPdjWVOdeb7zu5PqosA/exec";
-        fetch(scriptURL, { method: 'GET', mode: 'no-cors', cache: 'no-cache' });
+    // ✅ 關鍵修正：用 pageshow（比 load 更穩）
+    window.addEventListener('pageshow', function () {
+        forceScrollTop();
     });
 
-    // 手機版導覽開關
+    // ✅ 再補一層保險（處理圖片延遲撐開）
+    window.addEventListener('load', function () {
+        requestAnimationFrame(() => {
+            window.scrollTo(0, 0);
+        });
+    });
+
+    // ❌ 移除 pagehide（這個會干擾）
+    // window.addEventListener('pagehide', forceScrollTop);
+
+    // 清除 hash（避免跳錨點）
+    if (window.location.hash) {
+        history.replaceState(null, null, window.location.pathname);
+    }
+
+    // Google Sheets（保留你的）
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxcu82VuocKiFR_h7dV9x1OkKzBnLga6bwFoRxscruWzCzcALHKPdjWVOdeb7zu5PqosA/exec";
+    fetch(scriptURL, { method: 'GET', mode: 'no-cors', cache: 'no-cache' });
+
     function toggleNav() {
         document.getElementById('sideNav').classList.toggle('active');
     }
+
     function closeNav() {
         if (window.innerWidth <= 1400) {
             document.getElementById('sideNav').classList.remove('active');
