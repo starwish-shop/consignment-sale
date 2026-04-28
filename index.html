@@ -190,92 +190,79 @@
         .side-nav.active { display: block; }
 /* --- 響應式與手機版設定 --- */
 
-    /* 1. 電腦版預設：隱藏手機選單按鈕 (那三條線) */
+/* ===== 手機選單按鈕（預設：電腦版隱藏） ===== */
+.mobile-nav-toggle {
+    display: none;
+}
+
+/* ===== 手機 / 平板版（小於 1400px） ===== */
+@media (max-width: 1400px) {
+
+    /* 顯示漢堡按鈕 */
     .mobile-nav-toggle {
+        display: block;
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        width: 55px;
+        height: 55px;
+        background-color: #9a87f5;
+        color: white;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 55px;
+        font-size: 1.5rem;
+        z-index: 3000;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        cursor: pointer;
+    }
+
+    /* 側邊選單改為隱藏（點擊才出現） */
+    .side-nav {
         display: none;
+        left: auto;
+        right: 20px;
+        top: auto;
+        bottom: 90px;
+        width: 150px;
     }
 
-    /* 2. 當螢幕小於 1400px 時 (手機/平板模式) */
-    @media (max-width: 1400px) {
-        /* 顯示三條線按鈕 */
-        .mobile-nav-toggle {
-            display: block; 
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            width: 55px;
-            height: 55px;
-            background-color: #9a87f5;
-            color: white;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 55px;
-            font-size: 1.5rem;
-            z-index: 3000;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            cursor: pointer;
-        }
+    /* 點擊後顯示 */
+    .side-nav.active {
+        display: block;
+    }
 
-        /* 隱藏左側固定選單，改為點擊後彈出 */
-        .side-nav {
-            display: none;
-            left: auto;
-            right: 20px;
-            top: auto;
-            bottom: 90px; /* 選單在按鈕上方出現 */
-            width: 150px;
-            transform: none;
-        }
-
-        /* 當選單被點開時顯示 */
-        .side-nav.active {
-            display: block;
-        }
-
-        /* 商品區恢復置中 (不留左側導覽位子) */
-/* 分類標題 (電腦版位移) */
-.category-title {
-    max-width: 1000px;
-    margin: 60px 50px 10px 220px; /* 這裡的 220px 是為了避開左側導覽 */
-    padding: 0 20px;
-    font-size: 1.8rem;
-    color: #333;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    scroll-margin-top: 150px;
-    border: none !important;
+    /* 商品區置中（取消左側預留空間） */
+    .category-title,
+    .product-grid {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1200px;
+    }
 }
 
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    max-width: 1000px;
-    margin: 20px 50px 20px 220px; /* 同樣避開左側 */
-    padding: 0 20px; 
+/* ===== 平板：一行兩個 ===== */
+@media (max-width: 900px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
+
+/* ===== 手機：一行一個 ===== */
+@media (max-width: 600px) {
+    .product-grid {
+        grid-template-columns: 1fr;
     }
 
-    /* 3. 中型螢幕 (如 iPad) 一行顯示 2 個商品 */
-    @media (max-width: 900px) {
-        .product-grid { 
-            grid-template-columns: repeat(2, 1fr); 
-        }
+    header {
+        font-size: 1.5rem;
+        letter-spacing: 4px;
     }
 
-    /* 4. 小型螢幕 (如手機) 一行顯示 1 個商品，字體縮小 */
-    @media (max-width: 600px) {
-        .product-grid { 
-            grid-template-columns: 1fr; 
-        }
-        header { 
-            font-size: 1.5rem; 
-            letter-spacing: 4px; 
-        }
-        .marquee-container { 
-            font-size: 1rem; 
-        }
+    .marquee-container {
+        font-size: 1rem;
+    }
+}
     }
 </style>
 </head>
