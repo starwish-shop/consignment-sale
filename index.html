@@ -838,6 +838,20 @@ console.log("嘗試發送紀錄...");
     });
   });
 </script>
+
+<script>
+function toggleNav() {
+    const nav = document.getElementById('sideNav');
+    nav.classList.toggle('active');
+}
+
+function closeNav() {
+    // 點擊連結後自動關閉選單 (手機版專用)
+    if (window.innerWidth <= 1400) {
+        document.getElementById('sideNav').classList.remove('active');
+    }
+}
+</script>
 	
 </body>
 </html>
