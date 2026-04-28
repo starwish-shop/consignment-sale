@@ -18,20 +18,22 @@
         }
 
         /* Header：強化漸層與質感 */
-        header {
-            background: linear-gradient(135deg, #9a87f5 0%, #836df2 100%);
-            padding: 30px 20px;
-            text-align: center;
-            color: white;
-            font-family: 'Cinzel', serif;
-            font-size: 2.2rem;
-            font-weight: 600;
-            letter-spacing: 12px; /* 增加字距營造品牌感 */
-            position: sticky; 
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(131, 109, 242, 0.15);
-        }
+header {
+    background-color: rgba(255, 255, 255, 0.8); /* 半透明白 */
+    backdrop-filter: blur(10px); /* 磨砂玻璃效果 */
+    -webkit-backdrop-filter: blur(10px);
+    padding: 25px 20px;
+    text-align: center;
+    color: #1d1d1f; /* 深灰色文字，比純黑更有質感 */
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* 極細的底線取代陰影 */
+}
 
         /* 分類標題：增加側邊點綴 */
         .category-title {
@@ -669,7 +671,7 @@
                 </a>
             </div>
             <div class="product-info">
-                <h2 class="product-name">小卡</h2>
+                <h2 class="product-name">徐彰彬小卡</h2>
                 <p class="product-price">NT$ 20</p>
             </div>
         </div>
