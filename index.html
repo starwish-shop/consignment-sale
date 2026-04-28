@@ -72,15 +72,13 @@
         .side-nav {
             position: fixed;
             left: 20px;
-            top: 180px; /* 修正：固定高度避開標題與跑馬燈 */
-            transform: none; 
+            top: 180px; /* 固定高度，避開 Header 和彈幕 */
             width: 150px;
             background: white;
             padding: 15px;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             z-index: 2000;
-            -webkit-user-select: none;
             user-select: none;
             max-height: calc(100vh - 220px);
             overflow-y: auto;
@@ -120,15 +118,16 @@
         /* 分類標題與網格 (位移避開側邊欄) */
         .category-title {
             max-width: 1000px;
-            margin: 60px 50px 10px 220px; 
+            margin: 60px 50px 10px 220px;
             padding: 0 20px;
             font-size: 1.8rem;
             color: #333;
             font-weight: 600;
             display: flex;
             align-items: center;
-            scroll-margin-top: 150px; 
-        }
+            scroll-margin-top: 150px;
+            border: none; /* 關鍵：確保沒有舊的底線 */
+        }}
 
         .category-title::before {
             content: '';
@@ -168,7 +167,12 @@
 
         .product-name { font-size: 1.1rem; font-weight: bold; color: #333; margin-bottom: 8px; }
 
-        .product-price { font-size: 1.1rem; color: #e53935; font-weight: bold; }
+        .product-price {
+            font-size: 1.1rem;
+            color: #9a87f5; /* 薰衣草紫 */
+            font-weight: bold;
+            margin: 0 0 15px 0;
+        }
 
         /* 響應式設定 */
         @media (max-width: 1400px) {
@@ -222,7 +226,7 @@
 
     <div class="marquee-container">
         <div class="marquee-content">
-             買了後悔三天，沒買後悔三年 ‧ 歡迎光臨星願鋪 ‧ 買了後悔三天，沒買後悔三年 
+             買了後悔三天，沒買後悔三年  
         </div>
     </div>
 
@@ -510,42 +514,40 @@
         </div>
     </div>
 
-    <script>
-        // 1. 【核心】強制刷新回到頂端與關閉瀏覽器記憶滾動
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
-
-        // 頁面開始讀取就立刻執行一次置頂
+<script>
+    // 解決手機版刷新置頂問題的強力腳本
+    function forceScrollTop() {
         window.scrollTo(0, 0);
+    }
 
-        window.addEventListener('load', function() {
-            // 確保所有圖片加載後再次置頂
-            setTimeout(function() {
-                window.scrollTo(0, 0);
-            }, 10);
+    // 1. 關閉瀏覽器自動恢復滾動位置
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
 
-            // 清除網址錨點
-            if (window.location.hash) {
-                history.replaceState(null, null, window.location.pathname);
-            }
-
-            // Google Sheets 紀錄腳本
-            const scriptURL = "https://script.google.com/macros/s/AKfycbxcu82VuocKiFR_h7dV9x1OkKzBnLga6bwFoRxscruWzCzcALHKPdjWVOdeb7zu5PqosA/exec";
-            fetch(scriptURL, { method: 'GET', mode: 'no-cors', cache: 'no-cache' })
-            .catch(error => console.error("紀錄連線出錯:", error));
-        });
-
-        // 2. 手機版選單邏輯
-        function toggleNav() {
-            document.getElementById('sideNav').classList.toggle('active');
+    // 2. 頁面載入與離開時的處理
+    window.addEventListener('pagehide', forceScrollTop); // 針對手機 Safari 加強
+    window.addEventListener('load', function() {
+        setTimeout(forceScrollTop, 10); // 延遲執行確保圖片撐開後能歸位
+        
+        if (window.location.hash) {
+            history.replaceState(null, null, window.location.pathname);
         }
 
-        function closeNav() {
-            if (window.innerWidth <= 1400) {
-                document.getElementById('sideNav').classList.remove('active');
-            }
+        // Google Sheets 紀錄 (如果你有需要的話)
+        const scriptURL = "https://script.google.com/macros/s/AKfycbxcu82VuocKiFR_h7dV9x1OkKzBnLga6bwFoRxscruWzCzcALHKPdjWVOdeb7zu5PqosA/exec";
+        fetch(scriptURL, { method: 'GET', mode: 'no-cors', cache: 'no-cache' });
+    });
+
+    // 手機版導覽開關
+    function toggleNav() {
+        document.getElementById('sideNav').classList.toggle('active');
+    }
+    function closeNav() {
+        if (window.innerWidth <= 1400) {
+            document.getElementById('sideNav').classList.remove('active');
         }
-    </script>
+    }
+</script>
 </body>
 </html>
