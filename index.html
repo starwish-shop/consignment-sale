@@ -182,27 +182,32 @@
         }
 
 		/* --- 側邊導覽列 (電腦版) --- */
+/* 讓整頁跳轉時平滑滾動 */
+html {
+    scroll-behavior: smooth;
+}
+
+/* 側邊導覽列 */
 .side-nav {
     position: fixed;
     left: 20px;
     top: 50%;
     transform: translateY(-50%);
-    width: 160px;
+    width: 140px;
     background: white;
     padding: 15px;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    z-index: 1000;
+    z-index: 2000; /* 提高層級，確保不被商品擋住 */
+    user-select: none; /* 防止選取 */
 }
 
 .side-nav h3 {
     font-family: 'Cinzel', serif;
     font-size: 1rem;
-    margin-bottom: 15px;
+    margin: 0 0 10px 0;
     color: #9a87f5;
     text-align: center;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 8px;
 }
 
 .side-nav a {
@@ -213,31 +218,48 @@
     font-size: 0.9rem;
     transition: 0.3s;
     border-radius: 8px;
+    cursor: pointer;
 }
 
 .side-nav a:hover {
     background-color: #f0ecff;
     color: #9a87f5;
-    padding-left: 18px; /* 移入時的小動畫 */
 }
 
-/* --- 手機版切換按鈕 (預設隱藏) --- */
-.mobile-nav-toggle {
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background-color: #9a87f5;
-    color: white;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 50px;
-    font-size: 1.5rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    z-index: 1001;
-    cursor: pointer;
+/* 修正分類標題的滾動偏移，避免被 Header 擋住文字 */
+.category-title {
+    scroll-margin-top: 100px; 
+}
+
+/* 手機版設定 */
+@media (max-width: 1400px) {
+    .side-nav {
+        display: none; /* 預設隱藏 */
+        left: auto;
+        right: 20px;
+        top: auto;
+        bottom: 80px;
+        transform: none;
+    }
+    .side-nav.active {
+        display: block;
+    }
+    .mobile-nav-toggle {
+        display: block;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 55px;
+        height: 55px;
+        background-color: #9a87f5;
+        color: white;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 55px;
+        font-size: 20px;
+        z-index: 2001;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
 }
 
 /* --- 響應式設定 --- */
@@ -285,8 +307,8 @@
     <a href="#nmixx" onclick="closeNav()">NMIXX</a>
     <a href="#rose" onclick="closeNav()">Rosé</a>
     <a href="#seventeen" onclick="closeNav()">SEVENTEEN</a>
-    <a href="#s28" onclick="closeNav()">SEVENTOEIGHT</a>
-    <a href="#skz" onclick="closeNav()">Stray Kids</a>
+    <a href="#seventoeight" onclick="closeNav()">SEVENTOEIGHT</a>
+    <a href="#straykids" onclick="closeNav()">Stray Kids</a>
 </nav>
 	
 <div class="marquee-container">
@@ -295,7 +317,7 @@
     </div>
 </div>
 
-			<h2 class="category-title">BTS</h2>
+			<h2 class="category-title" id="bts">BTS</h2>
 		<div class="product-grid">
         <div class="product-card">
             <div class="image-gallery">
@@ -323,7 +345,7 @@
 		</div>
 
 
-			<h2 class="category-title">Cortis</h2>
+			<h2 class="category-title" id="cortis">Cortis</h2>
 		<div class="product-grid">
         <div class="product-card">
             <div class="image-gallery">
@@ -339,7 +361,7 @@
 		</div>
 
 	
-	    <h2 class="category-title">CRAVITY</h2>
+	    <h2 class="category-title" id="cravity">CRAVITY</h2>
     <div class="product-grid">
         <div class="product-card">
             <div class="image-gallery">
@@ -391,7 +413,7 @@
 		</div>
 
 	
-		<h2 class="category-title">GFriend</h2>
+		<h2 class="category-title" id="gfriend">GFriend</h2>
 		<div class="product-grid">
         <div class="product-card">
             <div class="image-gallery">
@@ -407,7 +429,7 @@
 		</div>
 
 	
-    <h2 class="category-title">GOT7</h2>
+    <h2 class="category-title" id="got7">GOT7</h2>
     <div class="product-grid">
         <div class="product-card">
             <div class="image-gallery">
@@ -435,7 +457,7 @@
 		</div>
 
 
-	<h2 class="category-title">HIGHTLIGHT</h2>
+	<h2 class="category-title" id="highlight">HIGHTLIGHT</h2>
 		<div class="product-grid">
         <div class="product-card">
             <div class="image-gallery">
@@ -451,7 +473,7 @@
 		</div>
 
 
-		<h2 class="category-title">IU</h2>
+		<h2 class="category-title" id="iu">IU</h2>
 		<div class="product-grid">
         <div class="product-card">
             <div class="image-gallery">
@@ -467,7 +489,7 @@
 		</div>
 
 	
-		<h2 class="category-title">IVE</h2>
+		<h2 class="category-title" id="ive">IVE</h2>
 		<div class="product-grid">
 		
         <div class="product-card">
@@ -520,7 +542,7 @@
 		</div>
 
 
-    <h2 class="category-title">NMIXX</h2>
+    <h2 class="category-title" id="nmixx">NMIXX</h2>
     <div class="product-grid">
         <div class="product-card">
             <div class="image-gallery">
@@ -548,7 +570,7 @@
 		</div>
 
 	
-			<h2 class="category-title">Rosé</h2>
+			<h2 class="category-title" id="rose">Rosé</h2>
 		<div class="product-grid">
 		
         <div class="product-card">
@@ -589,7 +611,7 @@
 		</div>
 	
 
-    <h2 class="category-title">SEVENTEEN</h2>
+    <h2 class="category-title" id="seventeen">SEVENTEEN</h2>
     <div class="product-grid">
         <div class="product-card">
             <div class="image-gallery">
@@ -785,7 +807,7 @@
         </div>
 
 
-		<h2 class="category-title">SEVENTOEIGHT</h2>
+		<h2 class="category-title" id="seventoeight">SEVENTOEIGHT</h2>
 		<div class="product-grid">
         <div class="product-card">
             <div class="image-gallery">
@@ -801,7 +823,7 @@
 		</div>
 
 	
-	<h2 class="category-title">Stray Kids</h2>
+	<h2 class="category-title" id="straykids">Stray Kids</h2>
 		<div class="product-grid">
 		
 		<div class="product-card">
