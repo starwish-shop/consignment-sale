@@ -6,50 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>商品展示頁面</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&display=swap" rel="stylesheet">
 
-<style>
-
-        /* (保留你原本的基礎設定和 header 設定...) */
+    <style>
+        /* 基礎設定 */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f4f4f9;
             margin: 0;
         }
 
+        /* Header 設計：加入禁止選取功能 */
         header {
-
             background-color: #9a87f5; /* 薰衣草紫 */
             padding: 18px 20px;
             text-align: center;
             color: white;
-			
-            /* ===== 新增與修改這裡 ===== */
             font-family: 'Cinzel', serif; /* 套用英倫風字體 */
-            font-size: 1.8rem; /* 字體稍微放大一點 */
-            font-weight: 500; /* 控制粗細，500比較剛好，不會太粗 */
-            letter-spacing: 6px; /* 字距拉開，精品品牌最愛用的排版技巧 */
-            /* ========================= */
+            font-size: 1.8rem;
+            font-weight: 500;
+            letter-spacing: 6px;
             position: sticky; 
             top: 0;
             z-index: 100;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+            /* ===== 防止選取文字 ===== */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            cursor: default;
         }
 
-        /* ===== 新增：分類標題的設計 ===== */
-
+        /* 分類標題設計 */
         .category-title {
             max-width: 1200px;
-            margin: 40px auto 10px auto; /* 增加上方的距離，與上面的商品拉開空間 */
+            margin: 40px auto 10px auto;
             padding: 0 20px;
             font-size: 1.6rem;
             color: #4a4a4a;
-            border-bottom: 2px solid #e0e0e0; /* 加上一條淺灰色的底線 */
+            border-bottom: 2px solid #e0e0e0;
             padding-bottom: 10px;
         }
 
-        /* 網格容器：設定一行三個 */
-
+        /* 網格容器 */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -59,7 +60,7 @@
             padding: 0 20px; 
         }
 
-        /* (保留你原本的商品卡片 .product-card 等所有設計...) */
+        /* 商品卡片設計 */
         .product-card {
             background-color: #ffffff;
             border-radius: 12px;
@@ -103,52 +104,63 @@
             flex-direction: column;
             flex-grow: 1;
         }
-	
+    
         .product-name {
             font-size: 1.25rem;
             font-weight: bold;
             color: #333;
             margin: 0 0 10px 0;
         }
-	
+    
         .product-price {
             font-size: 1.1rem;
-           color: #e53935;
+            color: #e53935;
             font-weight: bold;
             margin: 0 0 15px 0;
         }
-	
+    
+        /* 跑馬燈容器：同樣加入禁止選取功能 */
+        .marquee-container {
+            background-color: #f0ecff;
+            color: #9a87f5;
+            padding: 10px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-bottom: 1px solid #e0e0e0;
+            position: relative;
+            z-index: 90;
+
+            /* ===== 防止選取文字 ===== */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            cursor: default;
+        }
+
+        /* 跑馬燈動畫內容 */
+        .marquee-content {
+            display: inline-block;
+            padding-left: 100%; 
+            animation: marquee 15s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* 響應式設定 */
         @media (max-width: 900px) {
             .product-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 600px) {
             .product-grid { grid-template-columns: 1fr; }
+            header { font-size: 1.5rem; letter-spacing: 4px; }
+            .marquee-container { font-size: 1rem; }
         }
-
-	/* 跑馬燈容器 */
-.marquee-container {
-    background-color: #f0ecff; /* 極淺紫色背景，與薰衣草紫呼應 */
-    color: #9a87f5; /* 字體使用 header 的紫色 */
-    padding: 8px 0;
-    overflow: hidden;
-    white-space: nowrap;
-    font-size: 1.5rem;
-    font-weight: bold;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-/* 跑馬燈動畫內容 */
-.marquee-content {
-    display: inline-block;
-    padding-left: 100%; /* 從最右側開始 */
-    animation: marquee 15s linear infinite; /* 15秒跑一次，無限循環 */
-}
-
-@keyframes marquee {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(-100%, 0); }
-}
-	
     </style>
 </head>
 <body>
@@ -157,7 +169,7 @@
 
 <div class="marquee-container">
     <div class="marquee-content">
-        買了後悔三天，沒買後悔三年 
+         買了後悔三天，沒買後悔三年           買了後悔三天，沒買後悔三年          買了後悔三天，沒買後悔三年 
     </div>
 </div>
 
