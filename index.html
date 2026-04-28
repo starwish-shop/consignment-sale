@@ -180,12 +180,115 @@
             header { font-size: 1.5rem; letter-spacing: 4px; }
             .marquee-container { font-size: 1rem; }
         }
+
+		/* --- 側邊導覽列 (電腦版) --- */
+.side-nav {
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 160px;
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.side-nav h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: #9a87f5;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+}
+
+.side-nav a {
+    display: block;
+    color: #666;
+    text-decoration: none;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    transition: 0.3s;
+    border-radius: 8px;
+}
+
+.side-nav a:hover {
+    background-color: #f0ecff;
+    color: #9a87f5;
+    padding-left: 18px; /* 移入時的小動畫 */
+}
+
+/* --- 手機版切換按鈕 (預設隱藏) --- */
+.mobile-nav-toggle {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #9a87f5;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 1001;
+    cursor: pointer;
+}
+
+/* --- 響應式設定 --- */
+@media (max-width: 1400px) {
+    /* 當螢幕不夠寬時，隱藏左側欄，顯示手機按鈕 */
+    .side-nav {
+        display: none; 
+        left: auto;
+        right: 20px;
+        top: auto;
+        bottom: 80px;
+        transform: none;
+        width: 140px;
+    }
+    .side-nav.active {
+        display: block; /* 點擊按鈕後才顯示 */
+    }
+    .mobile-nav-toggle {
+        display: block;
+    }
+}
+
+/* 修正分類標題的滾動偏移 (避免被固定 Header 擋住) */
+.category-title {
+    scroll-margin-top: 120px; 
+}
     </style>
 </head>
 <body>
 
     <header>STARWISH✨</header>
 
+<div class="mobile-nav-toggle" onclick="toggleNav()">☰</div>
+
+<nav class="side-nav" id="sideNav">
+    <h3>Groups</h3>
+    <a href="#bts" onclick="closeNav()">BTS</a>
+    <a href="#cortis" onclick="closeNav()">Cortis</a>
+    <a href="#cravity" onclick="closeNav()">CRAVITY</a>
+    <a href="#gfriend" onclick="closeNav()">GFriend</a>
+    <a href="#got7" onclick="closeNav()">GOT7</a>
+    <a href="#highlight" onclick="closeNav()">HIGHLIGHT</a>
+    <a href="#iu" onclick="closeNav()">IU</a>
+    <a href="#ive" onclick="closeNav()">IVE</a>
+    <a href="#nmixx" onclick="closeNav()">NMIXX</a>
+    <a href="#rose" onclick="closeNav()">Rosé</a>
+    <a href="#seventeen" onclick="closeNav()">SEVENTEEN</a>
+    <a href="#s28" onclick="closeNav()">SEVENTOEIGHT</a>
+    <a href="#skz" onclick="closeNav()">Stray Kids</a>
+</nav>
+	
 <div class="marquee-container">
     <div class="marquee-content">
          買了後悔三天，沒買後悔三年 
