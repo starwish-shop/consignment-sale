@@ -8,217 +8,219 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&display=swap" rel="stylesheet">
 
     <style>
-        /* 讓整頁跳轉時平滑滾動 */
-        html {
-            scroll-behavior: smooth;
-        }
+    /* 讓整頁跳轉時平滑滾動 */
+    html {
+        scroll-behavior: smooth;
+    }
 
-        /* 基礎設定 */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-        }
+    /* 基礎設定 */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+    }
 
-        /* Header 設計 */
-        header {
-            background-color: #9a87f5;
-            padding: 18px 20px;
-            text-align: center;
-            color: white;
-            font-family: 'Cinzel', serif;
-            font-size: 1.8rem;
-            font-weight: 500;
-            letter-spacing: 6px;
-            position: sticky; 
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            -webkit-user-select: none;
-            user-select: none;
-            cursor: default;
-        }
+    /* Header 設計 */
+    header {
+        background-color: #9a87f5;
+        padding: 18px 20px;
+        text-align: center;
+        color: white;
+        font-family: 'Cinzel', serif;
+        font-size: 1.8rem;
+        font-weight: 500;
+        letter-spacing: 6px;
+        position: sticky; 
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        -webkit-user-select: none;
+        user-select: none;
+        cursor: default;
+    }
 
-        /* 跑馬燈容器 */
-        .marquee-container {
-            background-color: #f0ecff;
-            color: #9a87f5;
-            padding: 10px 0;
-            overflow: hidden;
-            white-space: nowrap;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border-bottom: 1px solid #e0e0e0;
-            position: sticky;
-            top: 75px; /* 緊貼在 header 下方 */
-            z-index: 900;
-            -webkit-user-select: none;
-            user-select: none;
-            cursor: default;
-        }
+    /* 跑馬燈容器 */
+    .marquee-container {
+        background-color: #f0ecff;
+        color: #9a87f5;
+        padding: 10px 0;
+        overflow: hidden;
+        white-space: nowrap;
+        font-size: 1.2rem;
+        font-weight: bold;
+        border: none !important; /* 強制消除邊框 */
+        border-bottom: 1px solid #e0e0e0 !important; /* 只留最下面一條 */
+        position: sticky;
+        top: 75px;
+        z-index: 900;
+        -webkit-user-select: none;
+        user-select: none;
+        cursor: default;
+    }
 
-        .marquee-content {
-            display: inline-block;
-            padding-left: 100%; 
-            animation: marquee 15s linear infinite;
-        }
+    .marquee-content {
+        display: inline-block;
+        padding-left: 100%; 
+        animation: marquee 15s linear infinite;
+    }
 
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
+    @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100%); }
+    }
 
-        /* 側邊導覽列 (電腦版修正) */
+    /* 側邊導覽列 (電腦版) */
+    .side-nav {
+        position: fixed;
+        left: 20px;
+        top: 180px; 
+        width: 150px;
+        background: white;
+        padding: 15px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        z-index: 2000;
+        user-select: none;
+        max-height: calc(100vh - 220px);
+        overflow-y: auto;
+        border: none !important; /* 確保選單本身沒線條 */
+    }
+
+    .side-nav::-webkit-scrollbar { width: 4px; }
+    .side-nav::-webkit-scrollbar-thumb { background: #f0ecff; border-radius: 10px; }
+
+    .side-nav h3 {
+        font-family: 'Cinzel', serif;
+        font-size: 1rem;
+        margin: 0 0 10px 0;
+        color: #9a87f5;
+        text-align: center;
+        border-bottom: 1px solid #f0ecff;
+        padding-bottom: 5px;
+    }
+
+    .side-nav a {
+        display: block;
+        color: #666;
+        text-decoration: none;
+        padding: 6px 10px;
+        font-size: 0.85rem;
+        transition: 0.3s;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .side-nav a:hover {
+        background-color: #f0ecff;
+        color: #9a87f5;
+        padding-left: 15px;
+    }
+
+    /* 分類標題 */
+    .category-title {
+        max-width: 1000px;
+        margin: 60px 50px 10px 220px;
+        padding: 0 20px;
+        font-size: 1.8rem;
+        color: #333;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        scroll-margin-top: 150px;
+        border: none !important; /* 修正：移除多餘大括號並強制去線 */
+        border-bottom: none !important;
+    }
+
+    .category-title::before {
+        content: '';
+        display: inline-block;
+        width: 6px;
+        height: 30px;
+        background-color: #9a87f5;
+        margin-right: 15px;
+        border-radius: 4px;
+    }
+
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        max-width: 1000px;
+        margin: 20px 50px 20px 220px;
+        padding: 0 20px; 
+    }
+
+    /* 商品卡片設計 */
+    .product-card {
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        overflow: hidden;
+        transition: transform 0.2s;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.15); }
+
+    .image-gallery img { width: 100%; height: 250px; object-fit: contain; }
+
+    .product-info { padding: 16px; display: flex; flex-direction: column; flex-grow: 1; }
+
+    .product-name { font-size: 1.1rem; font-weight: bold; color: #333; margin-bottom: 8px; }
+
+    .product-price {
+        font-size: 1.1rem;
+        color: #9a87f5;
+        font-weight: bold;
+        margin: 0 0 15px 0;
+    }
+
+    /* 響應式設定 */
+    @media (max-width: 1400px) {
         .side-nav {
-            position: fixed;
-            left: 20px;
-            top: 180px; /* 固定高度，避開 Header 和彈幕 */
+            display: none;
+            left: auto;
+            right: 20px;
+            top: auto;
+            bottom: 80px;
             width: 150px;
-            background: white;
-            padding: 15px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            z-index: 2000;
-            user-select: none;
-            max-height: calc(100vh - 220px);
-            overflow-y: auto;
         }
-
-        /* 隱藏選單內的捲軸 */
-        .side-nav::-webkit-scrollbar { width: 4px; }
-        .side-nav::-webkit-scrollbar-thumb { background: #f0ecff; border-radius: 10px; }
-
-        .side-nav h3 {
-            font-family: 'Cinzel', serif;
-            font-size: 1rem;
-            margin: 0 0 10px 0;
-            color: #9a87f5;
-            text-align: center;
-            border-bottom: 1px solid #f0ecff;
-            padding-bottom: 5px;
-        }
-
-        .side-nav a {
+        .side-nav.active { display: block; }
+        .mobile-nav-toggle {
             display: block;
-            color: #666;
-            text-decoration: none;
-            padding: 6px 10px;
-            font-size: 0.85rem;
-            transition: 0.3s;
-            border-radius: 8px;
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 55px;
+            height: 55px;
+            background-color: #9a87f5;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 55px;
+            font-size: 1.5rem;
+            z-index: 3000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             cursor: pointer;
         }
-
-        .side-nav a:hover {
-            background-color: #f0ecff;
-            color: #9a87f5;
-            padding-left: 15px;
+        .category-title, .product-grid {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 1200px;
         }
+    }
 
-        /* 分類標題與網格 (位移避開側邊欄) */
-        .category-title {
-            max-width: 1000px;
-            margin: 60px 50px 10px 220px;
-            padding: 0 20px;
-            font-size: 1.8rem;
-            color: #333;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            scroll-margin-top: 150px;
-            border: none; /* 關鍵：確保沒有舊的底線 */
-        }}
+    @media (max-width: 900px) {
+        .product-grid { grid-template-columns: repeat(2, 1fr); }
+    }
 
-        .category-title::before {
-            content: '';
-            display: inline-block;
-            width: 6px;
-            height: 30px;
-            background-color: #9a87f5;
-            margin-right: 15px;
-            border-radius: 4px;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            max-width: 1000px;
-            margin: 20px 50px 20px 220px;
-            padding: 0 20px; 
-        }
-
-        /* 商品卡片設計 */
-        .product-card {
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            overflow: hidden;
-            transition: transform 0.2s;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .product-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.15); }
-
-        .image-gallery img { width: 100%; height: 250px; object-fit: contain; }
-
-        .product-info { padding: 16px; display: flex; flex-direction: column; flex-grow: 1; }
-
-        .product-name { font-size: 1.1rem; font-weight: bold; color: #333; margin-bottom: 8px; }
-
-        .product-price {
-            font-size: 1.1rem;
-            color: #9a87f5; /* 薰衣草紫 */
-            font-weight: bold;
-            margin: 0 0 15px 0;
-        }
-
-        /* 響應式設定 */
-        @media (max-width: 1400px) {
-            .side-nav {
-                display: none;
-                left: auto;
-                right: 20px;
-                top: auto;
-                bottom: 80px;
-                width: 150px;
-            }
-            .side-nav.active { display: block; }
-            .mobile-nav-toggle {
-                display: block;
-                position: fixed;
-                bottom: 25px;
-                right: 25px;
-                width: 55px;
-                height: 55px;
-                background-color: #9a87f5;
-                color: white;
-                border-radius: 50%;
-                text-align: center;
-                line-height: 55px;
-                font-size: 1.5rem;
-                z-index: 3000;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-                cursor: pointer;
-            }
-            .category-title, .product-grid {
-                margin-left: auto;
-                margin-right: auto;
-                max-width: 1200px;
-            }
-        }
-
-        @media (max-width: 900px) {
-            .product-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media (max-width: 600px) {
-            .product-grid { grid-template-columns: 1fr; }
-            header { font-size: 1.5rem; letter-spacing: 4px; }
-            .marquee-container { font-size: 1rem; }
-        }
-    </style>
+    @media (max-width: 600px) {
+        .product-grid { grid-template-columns: 1fr; }
+        header { font-size: 1.5rem; letter-spacing: 4px; }
+        .marquee-container { font-size: 1rem; }
+    }
+</style>
 </head>
 <body>
 
