@@ -18,20 +18,22 @@
         }
 
         /* Header：強化漸層與質感 */
-header {
-    background: linear-gradient(to bottom, rgba(154, 135, 245, 0.1), rgba(255, 255, 255, 0.95));
-    backdrop-filter: blur(8px);
-    padding: 30px 20px;
-    text-align: center;
-    color: #836df2; /* 文字改為主題紫 */
-    font-family: 'Cinzel', serif;
-    font-size: 2rem;
-    font-weight: 600;
-    letter-spacing: 15px;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
+        header {
+            background-color: #9a87f5; /* 薰衣草紫 */
+            padding: 18px 20px;
+            text-align: center;
+            color: white;
+            /* ===== 新增與修改這裡 ===== */
+            font-family: 'Cinzel', serif; /* 套用英倫風字體 */
+            font-size: 1.8rem; /* 字體稍微放大一點 */
+            font-weight: 500; /* 控制粗細，500比較剛好，不會太粗 */
+            letter-spacing: 6px; /* 字距拉開，精品品牌最愛用的排版技巧 */
+            /* ========================= */
+            position: sticky; 
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
 
         /* 分類標題：增加側邊點綴 */
         .category-title {
