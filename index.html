@@ -41,20 +41,39 @@
     }
 
     /* 側邊導覽列 (電腦版) */
-    .side-nav {
-        position: fixed;
-        left: 20px;
-        top: 55%; /* 稍微偏下避開 header */
-        transform: translateY(-50%);
-        width: 150px;
-        background: white;
-        padding: 15px;
-        border-radius: 15px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        z-index: 2000;
-        -webkit-user-select: none;
-        user-select: none;
-    }
+/* 側邊導覽列 (電腦版) */
+.side-nav {
+    position: fixed;
+    left: 20px;
+    
+    /* 修改這裡：不要用 top 50%，改用固定的頂部距離 */
+    top: 180px; /* 這裡的數值 = Header高度 + 跑馬燈高度 + 預留空隙 */
+    
+    /* 移除原本的 transform: translateY(-50%); */
+    transform: none; 
+    
+    width: 150px;
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    z-index: 2000;
+    -webkit-user-select: none;
+    user-select: none;
+
+    /* 新增：如果螢幕太矮，讓選單內部可以捲動，才不會點不到下面的團體 */
+    max-height: calc(100vh - 200px); 
+    overflow-y: auto;
+}
+
+/* 隱藏選單內的捲軸，保持美觀 */
+.side-nav::-webkit-scrollbar {
+    width: 4px;
+}
+.side-nav::-webkit-scrollbar-thumb {
+    background: #f0ecff;
+    border-radius: 10px;
+}
 
     .side-nav h3 {
         font-family: 'Cinzel', serif;
@@ -944,17 +963,33 @@ console.log("嘗試發送紀錄...");
 </script>
 
 <script>
-function toggleNav() {
+  // 【關鍵】強制關閉瀏覽器的「自動恢復滾動位置」功能
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
+  // 當頁面加載或刷新時執行
+  window.addEventListener('load', function() {
+    // 確保回到頂端
+    window.scrollTo(0, 0);
+
+    // 清除網址列中的錨點
+    if (window.location.hash) {
+      history.replaceState(null, null, window.location.pathname);
+    }
+  });
+
+  // 手機版選單切換 (原本的功能保留)
+  function toggleNav() {
     const nav = document.getElementById('sideNav');
     nav.classList.toggle('active');
-}
+  }
 
-function closeNav() {
-    // 點擊連結後自動關閉選單 (手機版專用)
+  function closeNav() {
     if (window.innerWidth <= 1400) {
-        document.getElementById('sideNav').classList.remove('active');
+      document.getElementById('sideNav').classList.remove('active');
     }
-}
+  }
 </script>
 	
 </body>
