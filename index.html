@@ -297,28 +297,65 @@
         position: relative; /* 為了定位 NEW 標籤 */
     }
 
+    .product-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: visible; /* ⭐ 改這裡（原本是 hidden） */
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    position: relative; /* ⭐ 給 badge 定位用 */
+}
     /* NEW 閃爍標籤設計 */
-    .new-badge {
-        position: absolute;
-        top: -8px;
-        left: -8px;
-        background: linear-gradient(135deg, #ff6b6b, #ff4757);
-        color: white;
-        padding: 4px 12px;
-        font-size: 0.85rem;
-        font-family: 'Cinzel', sans-serif;
-        font-weight: bold;
-        border-radius: 20px;
-        z-index: 10;
-        box-shadow: 0 4px 8px rgba(255, 71, 87, 0.4);
-        animation: pulse-badge 2s infinite; /* 加入呼吸燈動畫吸引目光 */
-    }
+   .new-badge {
+    position: absolute;
+    top: 10px;   /* ⭐ 往內縮 */
+    left: 10px;  /* ⭐ 往內縮 */
+    
+    background: linear-gradient(135deg, #ff6b6b, #ff4757);
+    color: white;
+    
+    padding: 5px 14px;
+    font-size: 0.75rem;
+    font-family: 'Cinzel', sans-serif;
+    font-weight: bold;
+    letter-spacing: 1px;
 
-    @keyframes pulse-badge {
-        0% { transform: scale(1); box-shadow: 0 4px 8px rgba(255, 71, 87, 0.4); }
-        50% { transform: scale(1.08); box-shadow: 0 6px 12px rgba(255, 71, 87, 0.6); }
-        100% { transform: scale(1); box-shadow: 0 4px 8px rgba(255, 71, 87, 0.4); }
+    border-radius: 20px;
+    z-index: 20;
+
+    box-shadow: 0 4px 10px rgba(255, 71, 87, 0.4);
+
+    animation: pulse-badge 2s infinite;
+}
+
+    .new-arrivals-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 16px;
+
+    padding: 10px 20px 20px 20px; /* ⭐ 重點 */
+
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-padding: 20px; /* ⭐ 讓滑動更自然 */
+}
+
+@keyframes pulse-badge {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 4px 10px rgba(255, 71, 87, 0.4);
     }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 16px rgba(255, 71, 87, 0.6);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 10px rgba(255, 71, 87, 0.4);
+    }
+}
 
     /* --- 針對最新上架的 RWD 修正 --- */
     @media (max-width: 1400px) {
