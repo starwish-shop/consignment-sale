@@ -335,6 +335,28 @@
             flex: 0 0 200px; /* 手機版進一步縮小寬度，確保一定能看到下一張卡片 */
         }
     }
+
+    /* 燈箱背景 */
+.modal {
+    display: none; position: fixed; z-index: 5000; top: 0; left: 0;
+    width: 100%; height: 100%; background-color: rgba(0,0,0,0.9);
+    backdrop-filter: blur(5px);
+}
+/* 燈箱圖片 */
+.modal-content {
+    margin: auto; display: block; max-width: 90%; max-height: 80vh;
+    border-radius: 10px; margin-top: 50px;
+}
+/* 燈箱文字 (顯示商品名) */
+#modal-caption {
+    margin: auto; display: block; width: 80%; text-align: center;
+    color: white; padding: 20px 0; font-size: 1.5rem; font-weight: bold;
+}
+/* 關閉按鈕 */
+.close-modal {
+    position: absolute; top: 15px; right: 35px; color: #f1f1f1;
+    font-size: 40px; font-weight: bold; cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -367,62 +389,14 @@
         <a href="#twice" onclick="closeNav()">TWICE</a>
     </nav>
     
-    <!-- ✨ 新增：最新上架板塊 ✨ -->
+<!-- ✨ 修改：最新上架板塊 (清空裡面的內容，讓系統自動抓取) -->
     <h2 class="category-title" id="new-arrivals" style="color: #9a87f5;">✨ 最新上架</h2>
-    
     <div class="new-arrivals-wrapper">
-        <div class="new-arrivals-container">
-            
-            <!-- 最新商品 1 -->
-            <div class="product-card new-arrivals-card">
-                <div class="new-badge">NEW</div>
-                <div class="image-gallery">
-                    <a href="images/44.jpg" target="_blank"><img src="images/44.jpg" alt="最新商品"></a>
-                </div>
-                <div class="product-info">
-                    <h2 class="product-name">新國立南娃 (範例)</h2>
-                    <p class="product-price">NT$ 665</p>
-                </div>
-            </div>
-
-            <!-- 最新商品 2 -->
-            <div class="product-card new-arrivals-card">
-                <div class="new-badge">NEW</div>
-                <div class="image-gallery">
-                    <a href="images/30.JPG" target="_blank"><img src="images/30.JPG" alt="最新商品"></a>
-                </div>
-                <div class="product-info">
-                    <h2 class="product-name">金志垣吊飾 (範例)</h2>
-                    <p class="product-price">NT$ 500</p>
-                </div>
-            </div>
-
-            <!-- 最新商品 3 -->
-            <div class="product-card new-arrivals-card">
-                <div class="new-badge">NEW</div>
-                <div class="image-gallery">
-                    <a href="images/24.jpg" target="_blank"><img src="images/24.jpg" alt="最新商品"></a>
-                </div>
-                <div class="product-info">
-                    <h2 class="product-name">BTS 手幅 (範例)</h2>
-                    <p class="product-price">NT$ 40</p>
-                </div>
-            </div>
-
-            <!-- 最新商品 4 (可自行無限往後新增) -->
-            <div class="product-card new-arrivals-card">
-                <div class="new-badge">NEW</div>
-                <div class="image-gallery">
-                    <a href="images/36.jpeg" target="_blank"><img src="images/36.jpeg" alt="最新商品"></a>
-                </div>
-                <div class="product-info">
-                    <h2 class="product-name">R已拆全專 (範例)</h2>
-                    <p class="product-price">NT$ 380</p>
-                </div>
-            </div>
-
+        <div class="new-arrivals-container" id="auto-new-arrivals">
+            <!-- 這裡會由下方的 JS 自動把帶有 'new-item' 的商品抓過來放 -->
         </div>
     </div>
+    
     <!-- 最新上架板塊結束 -->
     <h2 class="category-title" id="bts">BTS</h2>
     <div class="product-grid">
@@ -573,7 +547,7 @@
     
     <h2 class="category-title" id="ive">IVE</h2>
     <div class="product-grid">
-        <div class="product-card">
+        <div class="product-card new-item">
             <div class="image-gallery">
                 <a href="images/30.JPG" target="_blank"><img src="images/30.JPG" alt="金志垣吊飾"></a>
             </div>
@@ -700,7 +674,7 @@
     
     <h2 class="category-title" id="straykids">Stray Kids</h2>
     <div class="product-grid">
-        <div class="product-card">
+        <div class="product-card new-item">
             <div class="image-gallery">
                 <a href="images/43.JPG" target="_blank"><img src="images/43.JPG" alt="徐彰彬小卡"></a>
             </div>
@@ -714,7 +688,7 @@
     
          <h2 class="category-title" id="twice">TWICE</h2>
     <div class="product-grid">
-        <div class="product-card">
+        <div class="product-card new-item">
             <div class="image-gallery">
                 <a href="images/44.jpg" target="_blank"><img src="images/44.jpg" alt="新國立南娃"></a>
             </div>
@@ -724,7 +698,7 @@
             </div>
         </div>
         
-        <div class="product-card">
+        <div class="product-card new-item">
             <div class="image-gallery">
                 <a href="images/45.jpg" target="_blank"><img src="images/45.jpg" alt="新國立多娃"></a>
             </div>
@@ -735,50 +709,124 @@
         </div>
     </div>
 
-
+<!-- ✨ 新增：燈箱的 HTML 結構 (請放在 body 底部, script 上方) -->
+    <div id="imageModal" class="modal">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImg">
+        <div id="modal-caption"></div>
+    </div>
+    
 <script>
+    // ==========================================
+    // 1. 原本的頁面滾動與選單控制設定
+    // ==========================================
     function forceScrollTop() {
         window.scrollTo(0, 0);
     }
-
-    // 關閉瀏覽器自動記錄滾動
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
-
-    // ✅ 關鍵修正：用 pageshow（比 load 更穩）
     window.addEventListener('pageshow', function () {
         forceScrollTop();
     });
-
-    // ✅ 再補一層保險（處理圖片延遲撐開）
     window.addEventListener('load', function () {
         requestAnimationFrame(() => {
             window.scrollTo(0, 0);
         });
     });
-
-    // ❌ 移除 pagehide（這個會干擾）
-    // window.addEventListener('pagehide', forceScrollTop);
-
-    // 清除 hash（避免跳錨點）
     if (window.location.hash) {
         history.replaceState(null, null, window.location.pathname);
     }
 
-    // Google Sheets（保留你的）
     const scriptURL = "https://script.google.com/macros/s/AKfycbxcu82VuocKiFR_h7dV9x1OkKzBnLga6bwFoRxscruWzCzcALHKPdjWVOdeb7zu5PqosA/exec";
     fetch(scriptURL, { method: 'GET', mode: 'no-cors', cache: 'no-cache' });
 
     function toggleNav() {
         document.getElementById('sideNav').classList.toggle('active');
     }
-
     function closeNav() {
         if (window.innerWidth <= 1400) {
             document.getElementById('sideNav').classList.remove('active');
         }
     }
+
+    // ==========================================
+    // ✨ 2. 自動抓取並生成「最新上架」商品
+    // ==========================================
+    function generateNewArrivals() {
+        const container = document.getElementById('auto-new-arrivals');
+        // 尋找所有一般分類中，帶有 'new-item' class 的商品
+        const newItems = document.querySelectorAll('.product-grid .new-item');
+
+        if(newItems.length === 0) {
+            container.innerHTML = '<p style="padding:10px; color:#666;">目前沒有最新商品</p>';
+            return;
+        }
+
+        newItems.forEach(item => {
+            // 複製整個商品卡片 HTML
+            const clone = item.cloneNode(true);
+            // 更改 class 以符合最新上架的橫向滑動樣式
+            clone.className = 'product-card new-arrivals-card';
+            
+            // 建立並插入閃爍的 NEW 標籤
+            const badge = document.createElement('div');
+            badge.className = 'new-badge';
+            badge.innerText = 'NEW';
+            clone.insertBefore(badge, clone.firstChild);
+
+            // 放進最新上架區塊
+            container.appendChild(clone);
+        });
+    }
+
+    // ==========================================
+    // ✨ 3. 圖片燈箱系統 (點擊看大圖 + 自動顯示商品名稱)
+    // ==========================================
+    function initLightbox() {
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("modalImg");
+        const captionText = document.getElementById("modal-caption");
+
+        // 掃描頁面上所有的商品卡片
+        document.querySelectorAll('.product-card').forEach(card => {
+            const link = card.querySelector('.image-gallery a');
+            const img = card.querySelector('.image-gallery img');
+            const productName = card.querySelector('.product-name');
+
+            if (link && img && productName) {
+                // 攔截點擊事件，不讓它開新分頁
+                link.onclick = function(e) {
+                    e.preventDefault(); 
+                    modal.style.display = "block";       // 顯示燈箱
+                    modalImg.src = img.src;              // 帶入圖片路徑
+                    captionText.innerHTML = productName.innerText; // ✨自動帶入該商品名稱
+                }
+            }
+        });
+    }
+
+    // 關閉燈箱的函數
+    function closeModal() {
+        document.getElementById("imageModal").style.display = "none";
+    }
+
+    // 點擊燈箱黑色背景也能關閉
+    window.onclick = function(event) {
+        const modal = document.getElementById("imageModal");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // ==========================================
+    // 🚀 當網頁載入完成後，依序執行上述功能
+    // ==========================================
+    document.addEventListener("DOMContentLoaded", () => {
+        generateNewArrivals(); // 先生成最新商品
+        initLightbox();        // 再綁定所有圖片的燈箱功能(包含剛生成的最新商品)
+    });
+
 </script>
 </body>
 </html>
