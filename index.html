@@ -288,6 +288,10 @@
     .new-arrivals-container::-webkit-scrollbar {
         display: none;
     }
+    .new-arrivals-container::after {
+    content: "";
+    flex: 0 0 20px; /* 右邊留空 */
+}
 
     .new-arrivals-card {
         /* flex 參數: 不放大、不縮小、固定寬度 240px */
@@ -584,7 +588,7 @@
     
     <h2 class="category-title" id="ive">IVE</h2>
     <div class="product-grid">
-        <div class="product-card new-item">
+        <div class="product-card">
             <div class="image-gallery">
                 <a href="images/30.JPG" target="_blank"><img src="images/30.JPG" alt="金志垣吊飾"></a>
             </div>
