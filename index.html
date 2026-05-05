@@ -267,6 +267,74 @@
             font-size: 1.5rem;
         }
     }
+    /* =========================================
+       ✨ 新增：最新上架專屬樣式 (手機橫向滑動)
+       ========================================= */
+    .new-arrivals-wrapper {
+        max-width: 1000px;
+        margin: 20px 50px 20px 220px; /* 配合你原本電腦版的向右位移 */
+    }
+
+    .new-arrivals-container {
+        display: flex;
+        overflow-x: auto;
+        gap: 16px;
+        padding: 10px 5px 20px 5px; /* 底部留空間給陰影，避免被切斷 */
+        scroll-snap-type: x mandatory; /* 滑動時自動吸附對齊卡片 */
+        -webkit-overflow-scrolling: touch; /* 讓 iOS 上的滑動更平滑 */
+    }
+
+    /* 隱藏橫向滾動條，畫面更乾淨 */
+    .new-arrivals-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .new-arrivals-card {
+        /* flex 參數: 不放大、不縮小、固定寬度 240px */
+        /* 手機螢幕寬度約 375px~430px，240px 剛好能露出第二張卡片的一小半 */
+        flex: 0 0 240px; 
+        scroll-snap-align: start; /* 吸附對齊點 */
+        position: relative; /* 為了定位 NEW 標籤 */
+    }
+
+    /* NEW 閃爍標籤設計 */
+    .new-badge {
+        position: absolute;
+        top: -8px;
+        left: -8px;
+        background: linear-gradient(135deg, #ff6b6b, #ff4757);
+        color: white;
+        padding: 4px 12px;
+        font-size: 0.85rem;
+        font-family: 'Cinzel', sans-serif;
+        font-weight: bold;
+        border-radius: 20px;
+        z-index: 10;
+        box-shadow: 0 4px 8px rgba(255, 71, 87, 0.4);
+        animation: pulse-badge 2s infinite; /* 加入呼吸燈動畫吸引目光 */
+    }
+
+    @keyframes pulse-badge {
+        0% { transform: scale(1); box-shadow: 0 4px 8px rgba(255, 71, 87, 0.4); }
+        50% { transform: scale(1.08); box-shadow: 0 6px 12px rgba(255, 71, 87, 0.6); }
+        100% { transform: scale(1); box-shadow: 0 4px 8px rgba(255, 71, 87, 0.4); }
+    }
+
+    /* --- 針對最新上架的 RWD 修正 --- */
+    @media (max-width: 1400px) {
+        .new-arrivals-wrapper {
+            margin-left: auto !important;
+            margin-right: auto !important;
+            max-width: 1200px;
+            padding-left: 20px; /* 補回左邊距 */
+        }
+    }
+    
+    @media (max-width: 600px) {
+        .new-arrivals-card {
+            flex: 0 0 200px; /* 手機版進一步縮小寬度，確保一定能看到下一張卡片 */
+        }
+    }
 </style>
 </head>
 <body>
@@ -283,6 +351,7 @@
 
     <nav class="side-nav" id="sideNav">
         <h3>Groups</h3>
+        <a href="#new-arrivals" onclick="closeNav()" style="color: #ff4757; font-weight: bold;">✨ 最新上架</a>
         <a href="#bts" onclick="closeNav()">BTS</a>
         <a href="#cortis" onclick="closeNav()">Cortis</a>
         <a href="#cravity" onclick="closeNav()">CRAVITY</a>
@@ -298,7 +367,64 @@
         <a href="#straykids" onclick="closeNav()">Stray Kids</a>
         <a href="#twice" onclick="closeNav()">TWICE</a>
     </nav>
+    
+    <!-- ✨ 新增：最新上架板塊 ✨ -->
+    <h2 class="category-title" id="new-arrivals" style="color: #9a87f5;">✨ 最新上架</h2>
+    
+    <div class="new-arrivals-wrapper">
+        <div class="new-arrivals-container">
+            
+            <!-- 最新商品 1 -->
+            <div class="product-card new-arrivals-card">
+                <div class="new-badge">NEW</div>
+                <div class="image-gallery">
+                    <a href="images/44.jpg" target="_blank"><img src="images/44.jpg" alt="最新商品"></a>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-name">新國立南娃 (範例)</h2>
+                    <p class="product-price">NT$ 665</p>
+                </div>
+            </div>
 
+            <!-- 最新商品 2 -->
+            <div class="product-card new-arrivals-card">
+                <div class="new-badge">NEW</div>
+                <div class="image-gallery">
+                    <a href="images/30.JPG" target="_blank"><img src="images/30.JPG" alt="最新商品"></a>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-name">金志垣吊飾 (範例)</h2>
+                    <p class="product-price">NT$ 500</p>
+                </div>
+            </div>
+
+            <!-- 最新商品 3 -->
+            <div class="product-card new-arrivals-card">
+                <div class="new-badge">NEW</div>
+                <div class="image-gallery">
+                    <a href="images/24.jpg" target="_blank"><img src="images/24.jpg" alt="最新商品"></a>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-name">BTS 手幅 (範例)</h2>
+                    <p class="product-price">NT$ 40</p>
+                </div>
+            </div>
+
+            <!-- 最新商品 4 (可自行無限往後新增) -->
+            <div class="product-card new-arrivals-card">
+                <div class="new-badge">NEW</div>
+                <div class="image-gallery">
+                    <a href="images/36.jpeg" target="_blank"><img src="images/36.jpeg" alt="最新商品"></a>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-name">R已拆全專 (範例)</h2>
+                    <p class="product-price">NT$ 380</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- 最新上架板塊結束 -->
     <h2 class="category-title" id="bts">BTS</h2>
     <div class="product-grid">
         <div class="product-card">
